@@ -1,0 +1,52 @@
+.assign-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.assign-complaint-summary {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.assign-summary-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.officer-select-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.officer-preview-card {
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.officer-preview-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-full);
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--civic-primary);
+  flex-shrink: 0;
+}

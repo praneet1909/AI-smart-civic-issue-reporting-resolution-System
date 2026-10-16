@@ -1,0 +1,234 @@
+.admin-dashboard {
+  padding: 2.5rem 1.5rem 4rem;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.admin-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.admin-welcome-title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.admin-welcome-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  margin-top: 0.25rem;
+}
+
+/* KPI Grid */
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-medium);
+}
+
+.kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.kpi-val {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-top: 0.25rem;
+}
+
+/* Tabs Bar */
+.admin-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.25rem;
+}
+
+.admin-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.admin-tab-btn:hover {
+  color: #ffffff;
+}
+
+.admin-tab-btn.active {
+  color: var(--civic-primary);
+  border-bottom-color: var(--civic-primary);
+}
+
+/* Master Table Toolbar */
+.admin-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.admin-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-search-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Master Data Table */
+.admin-table-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  background: rgba(15, 23, 42, 0.85);
+  padding: 0.95rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.admin-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background: rgba(30, 41, 69, 0.45);
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Workload Distribution Cards */
+.workload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 1.25rem;
+}
+
+.workload-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.workload-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workload-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.workload-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.workload-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+/* Officers Grid */
+.officers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+}
+
+.officer-roster-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}

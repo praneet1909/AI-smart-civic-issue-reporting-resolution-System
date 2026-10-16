@@ -1,0 +1,187 @@
+{
+  "info": {
+    "name": "AI Smart Civic — Complaints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "citizenToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "complaintId", "value": "1" },
+    { "key": "officerId", "value": "2" }
+  ],
+  "item": [
+    {
+      "name": "Create complaint",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "title", "type": "text", "value": "Huge pothole near the main road" },
+            { "key": "description", "type": "text", "value": "Bikes are struggling to pass and it is dangerous at night." },
+            { "key": "locationAddress", "type": "text", "value": "MG Road" },
+            { "key": "latitude", "type": "text", "value": "18.5204" },
+            { "key": "longitude", "type": "text", "value": "73.8567" },
+            { "key": "beforeImage", "type": "file", "src": "" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/complaints",
+        "description": "Citizen JWT. JPEG/PNG/WEBP only. beforeImage is required."
+      }
+    },
+    {
+      "name": "My complaints",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+        "url": "{{baseUrl}}/api/complaints/my?page=0&size=10"
+      }
+    },
+    {
+      "name": "Complaint details",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+        "url": "{{baseUrl}}/api/complaints/{{complaintId}}"
+      }
+    },
+    {
+      "name": "Complaint timeline",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+        "url": "{{baseUrl}}/api/complaints/{{complaintId}}/timeline"
+      }
+    },
+    {
+      "name": "Submit citizen feedback",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"rating\": 5,\n  \"comment\": \"Pothole was repaired cleanly and quickly. Great work!\"\n}"
+        },
+        "url": "{{baseUrl}}/api/complaints/{{complaintId}}/feedback",
+        "description": "Citizen submits 1-5 star rating and optional comments for a RESOLVED complaint, transitioning it to CLOSED."
+      }
+    },
+    {
+      "name": "Citizen get feedback",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+        "url": "{{baseUrl}}/api/complaints/{{complaintId}}/feedback",
+        "description": "Citizen retrieves submitted feedback for their complaint."
+      }
+    },
+    {
+      "name": "Citizen close complaint",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"remarks\": \"Work verified by citizen. Closing issue.\"\n}"
+        },
+        "url": "{{baseUrl}}/api/complaints/{{complaintId}}/close",
+        "description": "Citizen manually closes a RESOLVED complaint without submitting a feedback rating."
+      }
+    },
+    {
+      "name": "Admin list complaints",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/complaints?page=0&size=10"
+      }
+    },
+    {
+      "name": "Admin complaint details",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}"
+      }
+    },
+    {
+      "name": "Admin complaint timeline",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/timeline"
+      }
+    },
+    {
+      "name": "Admin list officers",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/officers"
+      }
+    },
+    {
+      "name": "Assign complaint",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"officerId\": {{officerId}},\n  \"remarks\": \"Assign to roads\"\n}"
+        },
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/assign"
+      }
+    },
+    {
+      "name": "Reassign complaint",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"officerId\": {{officerId}},\n  \"remarks\": \"Reassign\"\n}"
+        },
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/reassign"
+      }
+    },
+    {
+      "name": "Admin get feedback",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/feedback",
+        "description": "Administrator reviews citizen feedback and ratings for any complaint."
+      }
+    },
+    {
+      "name": "Admin close complaint",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"remarks\": \"Grace period elapsed after resolution with no citizen contestation. Administratively closed.\"\n}"
+        },
+        "url": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/close",
+        "description": "Administrator administratively closes a RESOLVED complaint."
+      }
+    }
+  ]
+}

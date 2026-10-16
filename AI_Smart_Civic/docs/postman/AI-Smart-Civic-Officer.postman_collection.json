@@ -1,0 +1,103 @@
+{
+  "info": {
+    "name": "AI Smart Civic — Officer Workflow",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "officerToken", "value": "" },
+    { "key": "complaintId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Officer login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"officer.roads@example.com\",\n  \"password\": \"Officer@123\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login",
+        "description": "Authenticate as a municipal department officer."
+      }
+    },
+    {
+      "name": "List assigned complaints",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "url": "{{baseUrl}}/api/officer/complaints?page=0&size=10",
+        "description": "Retrieve paginated complaints assigned to the authenticated officer."
+      }
+    },
+    {
+      "name": "List assigned complaints (filtered by status)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "url": "{{baseUrl}}/api/officer/complaints?status=PENDING&page=0&size=10",
+        "description": "Filter complaints assigned to the officer by status (e.g. PENDING, IN_PROGRESS, RESOLVED)."
+      }
+    },
+    {
+      "name": "Get complaint details",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "url": "{{baseUrl}}/api/officer/complaints/{{complaintId}}",
+        "description": "Retrieve detailed information for a specific complaint assigned to the officer."
+      }
+    },
+    {
+      "name": "Get complaint timeline",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "url": "{{baseUrl}}/api/officer/complaints/{{complaintId}}/timeline",
+        "description": "Retrieve audit event history for an assigned complaint."
+      }
+    },
+    {
+      "name": "Start work (update to IN_PROGRESS)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{officerToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"IN_PROGRESS\",\n  \"remarks\": \"Dispatched road maintenance team with asphalt roller.\"\n}"
+        },
+        "url": "{{baseUrl}}/api/officer/complaints/{{complaintId}}/status",
+        "description": "Officer transitions complaint status from PENDING to IN_PROGRESS."
+      }
+    },
+    {
+      "name": "Resolve complaint",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "remarks", "type": "text", "value": "Pothole filled with asphalt, leveled, and compacted. Road restored for safe traffic." },
+            { "key": "afterImage", "type": "file", "src": "" }
+          ]
+        },
+        "url": "{{baseUrl}}/api/officer/complaints/{{complaintId}}/resolve",
+        "description": "Officer submits after-resolution photo evidence and completion remarks, transitioning status to RESOLVED."
+      }
+    },
+    {
+      "name": "Get citizen feedback",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+        "url": "{{baseUrl}}/api/officer/complaints/{{complaintId}}/feedback",
+        "description": "Officer views citizen rating and feedback comments submitted for their assigned and resolved complaint."
+      }
+    }
+  ]
+}

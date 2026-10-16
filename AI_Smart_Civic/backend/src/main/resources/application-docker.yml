@@ -1,0 +1,18 @@
+# Used when the backend runs inside Docker Compose.
+# Database host MUST be the Compose service name "mysql", not localhost.
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql:3306/ai_smart_civic?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:80,http://localhost:5173}
+  seed:
+    admin-password: ${DEMO_ADMIN_PASSWORD:Admin@12345}
+    officer-password: ${DEMO_OFFICER_PASSWORD:Officer@12345}
+
+jwt:
+  secret: ${JWT_SECRET}

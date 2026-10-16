@@ -1,0 +1,104 @@
+{
+  "info": {
+    "name": "AI Smart Civic — Auth",
+    "description": "Phase 4 authentication endpoints. Set baseUrl and JWT after login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/api/health"
+      }
+    },
+    {
+      "name": "Register citizen",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Ada Citizen\",\n  \"email\": \"ada@example.com\",\n  \"password\": \"Password1\",\n  \"phone\": \"9876543210\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/register",
+        "description": "Public. Creates a CITIZEN. Password is hashed. Response never includes password."
+      }
+    },
+    {
+      "name": "Login citizen",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.token) { pm.collectionVariables.set('token', json.token); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ada@example.com\",\n  \"password\": \"Password1\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login"
+      }
+    },
+    {
+      "name": "Login demo admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const json = pm.response.json();",
+              "if (json.token) { pm.collectionVariables.set('token', json.token); }"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@aismartcivic.local\",\n  \"password\": \"Admin@12345\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login",
+        "description": "Dev/docker seed only. Change DEMO_ADMIN_PASSWORD in environment."
+      }
+    },
+    {
+      "name": "Current user",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/api/auth/me"
+      }
+    },
+    {
+      "name": "Login invalid password",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"ada@example.com\",\n  \"password\": \"wrong-password\"\n}"
+        },
+        "url": "{{baseUrl}}/api/auth/login",
+        "description": "Expected 401 Invalid email or password"
+      }
+    }
+  ]
+}
